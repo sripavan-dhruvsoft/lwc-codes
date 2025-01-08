@@ -1,0 +1,89 @@
+<template>
+    
+    <p>Shopping Cart for Account : </p> <b></b>
+    <br/>
+    <b>Products List:</b>
+    <br/>
+    <div class="slds-grid" style="background-color:#edede9; margin-top: 10px;">
+
+        <div class="slds-col slds-size_1-of-5">
+            <b>Product Name</b>
+        </div>
+        <div class="slds-col slds-size_1-of-5">
+            <b>Product Code</b>
+        </div>
+        <div class="slds-col slds-size_1-of-5">
+            <b>Price</b>
+        </div>
+
+        <div class="slds-col slds-size_1-of-5">
+            <b>Quantity</b>
+        </div>
+        <div class="slds-col slds-size_1-of-5"></div>
+        
+
+    </div>
+
+    <template for:each={productsData} for:item="prodObj">
+        <div class="slds-grid" key={prodObj.productCode}>
+            <div class="slds-col slds-size_1-of-5 paddingClass">
+                {prodObj.productName}
+            </div>
+            <div class="slds-col slds-size_1-of-5 paddingClass">
+                {prodObj.productCode}
+            </div>
+            <div class="slds-col slds-size_1-of-5 paddingClass">
+                {prodObj.productPrice}
+            </div>
+            <div class="slds-col slds-size_1-of-5">
+                <lightning-input type="number" variant="standard" name="name" data-input-id={prodObj.productCode}  placeholder="Enter Quantity of the Product"></lightning-input>
+            </div>
+            
+            <div class="slds-col slds-size_1-of-5 buttonClass">
+                <lightning-button variant="neutral" label="Add" title="Add Products" data-id={prodObj.productCode} onclick={handleAddProduct}></lightning-button>
+            </div>
+        </div>
+    </template>
+
+
+    <div lwc:if={showCart}>
+        <p style="text-align:center;font-weight: bold;">Shopping Cart:</p>
+        <div class="slds-grid" style="background-color:#edede9; margin-top:20px;">
+            <div class="slds-col slds-size_1-of-5">
+                <b>Product Name</b>
+            </div>
+            <div class="slds-col slds-size_1-of-5">
+                <b>Price</b>
+            </div>
+            <div class="slds-col slds-size_1-of-5">
+                <b>Quantity</b>
+            </div>
+            <div class="slds-col slds-size_1-of-5">
+                <b>Total Amount</b>
+            </div>
+            <div class="slds-col slds-size_1-of-5"><b>Total Amount</b></div>
+        </div>
+
+        <template for:each={productsInCart} for:item="prodObj">
+            <div class="slds-grid" key={prodObj.productCode}>
+                <div class="slds-col slds-size_1-of-5 paddingClass">
+                    {prodObj.productName}
+                </div>
+                <div class="slds-col slds-size_1-of-5 paddingClass">
+                    {prodObj.productPrice}
+                </div>
+                <div class="slds-col slds-size_1-of-5 paddingClass">
+                    {prodObj.prodQuantity}
+                </div>
+                <div class="slds-col slds-size_1-of-5 paddingClass">
+                    {prodObj.totalAmount}
+                </div>
+                
+                <div class="slds-col slds-size_1-of-5 buttonClass">
+                    <lightning-button variant="neutral" label="Remove" title="Remove Products" data-id={prodObj.productCode} onclick={handleRemoveProducts}></lightning-button>
+                </div>
+            </div>
+        </template>
+    </div>
+
+</template>
